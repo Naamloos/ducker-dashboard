@@ -12,5 +12,6 @@
 3. Lastly, point your reverse proxy to ducker at port `8888`
 4. Done!
 
-## Screenshots
-Coming soon.
+## Screenshots (WIP, to be updated)
+<img width="1869" height="992" alt="afbeelding" src="https://github.com/user-attachments/assets/bd0ef420-a0b6-462f-a7ad-b3a7f59b3efd" />
+
