@@ -2,16 +2,13 @@
 
 import * as React from "react"
 import {
-  BookOpen,
   Box,
-  Command,
   Container,
   Layers,
-  LifeBuoy,
   Network,
-  Send,
   Settings2,
   Activity,
+  Github, // TODO replace - deprecated icon
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -26,6 +23,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+
+import logo from "@/assets/logo.png"
 
 const data = {
   user: {
@@ -140,20 +139,10 @@ const data = {
   ],
   navSecondary: [
     {
-      title: "Documentation",
-      url: "/docs",
-      icon: BookOpen,
-    },
-    {
-      title: "Support",
-      url: "/support",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "/feedback",
-      icon: Send,
-    },
+      title: "GitHub",
+      url: "https://github.com/Naamloos/ducker-dashboard",
+      icon: Github,
+    }
   ],
 }
 
@@ -165,9 +154,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="/">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
-                </div>
+                <img src={logo} alt="Ducker Logo" className="size-10"/>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Ducker Dashboard</span>
                   {/* <span className="truncate text-xs">Management</span> */}

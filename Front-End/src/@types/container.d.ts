@@ -4,7 +4,7 @@ export interface Container {
     image: string;
     state: string;
     status: string;
-    created: number;
+    created: string;
     labels: Record<string, string>;
     imageId: string;
     command: string;

@@ -9,6 +9,24 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "migrate": {
+      "commandName": "Project",
+      "commandLineArgs": "migrate",
+      "dotnetRunMessages": true,
+      "launchBrowser": false
+    },
+    "migrate-rollback": {
+      "commandName": "Project",
+      "commandLineArgs": "migrate-rollback",
+      "dotnetRunMessages": true,
+      "launchBrowser": false
+    },
+    "create-admin": {
+      "commandName": "Project",
+      "commandLineArgs": "create-admin admin@example.org admin",
+      "dotnetRunMessages": true,
+      "launchBrowser": false
     }
   }
 }

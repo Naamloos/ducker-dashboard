@@ -10,19 +10,14 @@ import {
 } from "@/components/ui/table";
 
 export default function Index({containers}: {containers: Container[]}) {
-    console.log(containers);
-  const formatDate = (timestamp: number) => {
-    return new Date(timestamp * 1000).toLocaleString();
-  };
-
   const getStateColor = (state: string) => {
     switch (state?.toLowerCase()) {
       case "running":
         return "text-green-400 font-semibold";
       case "exited":
-        return "text-red-400 font-semibold";
+        return "text-destructive font-semibold";
       case "paused":
-        return "text-yellow-400 font-semibold";
+        return "text-warning font-semibold";
       default:
         return "text-gray-400";
     }
@@ -54,7 +49,11 @@ export default function Index({containers}: {containers: Container[]}) {
                       {container.state}
                     </TableCell>
                     <TableCell>{container.status}</TableCell>
-                    <TableCell>{formatDate(container.created)}</TableCell>
+                    {(() => {
+                      console.log(container.created);
+                      return <></>;
+                    })()}
+                    <TableCell>{container.created}</TableCell>
                   </TableRow>
                 ))
               ) : (
