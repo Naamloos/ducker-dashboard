@@ -418,3 +418,4 @@ FodyWeavers.xsd
 *.msp
 Dev.Naamloos.Ducker/wwwroot/dist
 Dev.Naamloos.Ducker/*.db*
+ducker-data

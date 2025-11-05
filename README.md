@@ -8,7 +8,8 @@
 
 ## Setup
 1. `docker compose up -d`
-2. `docker exec [your_ducker_container] ducker-cli create-root username password`
+2. `docker exec [your_ducker_container] ducker migrate`
+3. `docker exec [your_ducker_container] ducker create-admin [email] [password]`
 3. Lastly, point your reverse proxy to ducker at port `8888`
 4. Done!
 

@@ -32,7 +32,7 @@ namespace Dev.Naamloos.Ducker.CommandLine
                     // Inject potential services needed for CLI Host
                     services.AddDbContext<AppDbContext>(opts =>
                     {
-                        opts.UseSqlite("Data Source=app.db");
+                        opts.UseSqlite("Data Source=data/app.db");
                     }, ServiceLifetime.Singleton, ServiceLifetime.Singleton);
                     // Inject logger
                     services.AddLogging();

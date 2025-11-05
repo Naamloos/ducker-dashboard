@@ -1,6 +1,10 @@
 ﻿using Dev.Naamloos.Ducker.Entities;
 using Docker.DotNet;
+using System;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Dev.Naamloos.Ducker.Services
 {
@@ -10,9 +14,19 @@ namespace Dev.Naamloos.Ducker.Services
 
         public DockerService()
         {
-            dockerClient = new DockerClientConfiguration(
-                new Uri("npipe://./pipe/docker_engine"))
-                .CreateClient();
+            // Use unix socket on Linux, otherwise fall back to Windows named pipe
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                dockerClient = new DockerClientConfiguration(
+                    new Uri("unix:///var/run/docker.sock"))
+                    .CreateClient();
+            }
+            else
+            {
+                dockerClient = new DockerClientConfiguration(
+                    new Uri("npipe://./pipe/docker_engine"))
+                    .CreateClient();
+            }
         }
 
         public async Task<IEnumerable<Container>> ListContainersAsync()

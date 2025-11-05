@@ -15,7 +15,10 @@ namespace Dev.Naamloos.Ducker
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine(string.Join(' ', args));
+            if(!Directory.Exists("data"))
+            {
+                Directory.CreateDirectory("data");
+            }
             using (var cli = new CommandLine.CliHandler(args))
             {
                 // This check prevents ef core tools breaking
@@ -34,7 +37,7 @@ namespace Dev.Naamloos.Ducker
             // TODO: Path configurable via environment or config file
             builder.Services.AddDbContext<AppDbContext>(opt =>
             {
-                opt.UseSqlite("Data Source=app.db");
+                opt.UseSqlite("Data Source=data/app.db");
             });
 
             builder.Services.AddIdentity<User, Role>(opts =>
