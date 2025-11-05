@@ -22,6 +22,8 @@ services:
     networks:
       - ducker-network
 
+# Your network!
 networks:
   ducker-network:
-    driver: bridge
+    name: uwu-weeb-network # lol yeah that's my reverse proxy's network
+    external: true

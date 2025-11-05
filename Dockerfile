@@ -11,7 +11,7 @@ RUN npm ci
 # Copy the rest of the frontend source
 COPY Front-End/ ./
 
-# Build the frontend (outputs to ../Dev.Naamloos.Ducker/wwwroot/dist)
+# Build the frontend (outputs to ../Dev.Naamloos.Ducker/wwwroot/build)
 RUN npm run build
 
 # Stage 2: Build the ASP.NET Core application
@@ -26,7 +26,7 @@ RUN dotnet restore ./Dev.Naamloos.Ducker/Dev.Naamloos.Ducker.csproj
 COPY Dev.Naamloos.Ducker/ ./Dev.Naamloos.Ducker/
 
 # Copy built frontend assets from previous stage
-COPY --from=frontend-build /app/Dev.Naamloos.Ducker/wwwroot/dist ./Dev.Naamloos.Ducker/wwwroot/dist
+COPY --from=frontend-build /app/Dev.Naamloos.Ducker/wwwroot/build ./Dev.Naamloos.Ducker/wwwroot/build
 
 # Build the application
 WORKDIR /app/Dev.Naamloos.Ducker

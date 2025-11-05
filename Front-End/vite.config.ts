@@ -5,7 +5,7 @@ import { mkdirSync } from 'fs';
 import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
 
-const outDir = '../Dev.Naamloos.Ducker/wwwroot/dist';
+const outDir = '../Dev.Naamloos.Ducker/wwwroot/build';
 mkdirSync(outDir, { recursive: true });
 
 // https://vite.dev/config/
