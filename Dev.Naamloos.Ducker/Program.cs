@@ -83,7 +83,7 @@ namespace Dev.Naamloos.Ducker
             builder.Services.AddViteHelper(x =>
             {
                 x.PublicDirectory = "wwwroot";
-                x.BuildDirectory = "dist";
+                x.BuildDirectory = "build";
                 x.ManifestFilename = "manifest.json";
             });
             builder.Services.AddControllersWithViews()
