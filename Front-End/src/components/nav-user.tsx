@@ -78,7 +78,7 @@ export function NavUser({
                 <User className="text-amber-400" />
                 Account
               </DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500">
+            <DropdownMenuItem className="text-red-500" onClick={() => window.location.href = '/auth/logout'}>
               <LogOut className="text-red-500" />
               Log out
             </DropdownMenuItem>

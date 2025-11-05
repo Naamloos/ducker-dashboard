@@ -71,12 +71,12 @@ namespace Dev.Naamloos.Ducker.Controllers
             return Task.FromResult<IActionResult>(Inertia.Render("login"));
         }
 
-        [HttpPost("logout")]
+        [HttpGet("logout")]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signIn.SignOutAsync();
-            return Ok("Logged out");
+            return Redirect("/auth/login");
         }
     }
 }
