@@ -17,7 +17,10 @@ namespace Dev.Naamloos.Ducker.Middleware
         {
             var userManager = context.RequestServices.GetRequiredService<UserManager<User>>();
             var user = await userManager.GetUserAsync(context.User);
-            Inertia.Share("user", SafeUserDto.FromUser(user));
+            if (user is not null)
+            {
+                Inertia.Share("user", SafeUserDto.FromUser(user));
+            }
             await _next(context);
             // After the request
             // You can modify the response here if needed
