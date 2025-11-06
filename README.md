@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" height="200" alt="ducker-logo" src="https://github.com/user-attachments/assets/6077e615-cae1-4ce4-814e-7f0f3ef80f97" />
+  <img width="200" height="200" alt="ducker-logo" src="logo/ducker-logo.svg" />
   <h1 align="center">Ducker Dashboard</h1>
   <p align="center">
     Keep your ducks in a row
@@ -16,5 +16,5 @@
 7. Done!
 
 ## Screenshots (WIP, to be updated)
-<img width="1869" height="992" alt="afbeelding" src="https://github.com/user-attachments/assets/bd0ef420-a0b6-462f-a7ad-b3a7f59b3efd" />
+<img width="1869"  alt="afbeelding" src="https://github.com/user-attachments/assets/bd0ef420-a0b6-462f-a7ad-b3a7f59b3efd" />
 
