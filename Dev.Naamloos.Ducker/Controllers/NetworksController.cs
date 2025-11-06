@@ -1,9 +1,11 @@
 ﻿using InertiaCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dev.Naamloos.Ducker.Controllers
 {
     [Route("networks")]
+    [Authorize]
     public class NetworksController : Controller
     {
         [HttpGet]
