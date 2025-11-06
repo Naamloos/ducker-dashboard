@@ -23,6 +23,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { ThemeSwitcher } from "./ui/theme-switcher"
+import { useTheme } from "../hooks/use-theme"
 
 export function NavUser({
   user,
@@ -32,7 +34,7 @@ export function NavUser({
     avatar: string
   }
 }) {
-  const { isMobile } = useSidebar()
+  const { isMobile } = useSidebar();
 
   return (
     <SidebarMenu>
@@ -79,6 +81,7 @@ export function NavUser({
               <LogOut className="text-red-500" />
               Log out
             </DropdownMenuItem>
+            <ThemeSwitcher className="justify-center mt-2" />
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

@@ -32,104 +32,95 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/",
+      url: "/dashboard",
       icon: Activity,
-      isActive: true,
       items: [
         {
           title: "Overview",
-          url: "/",
+          url: "/dashboard",
         },
         {
           title: "Analytics",
-          url: "/",
+          url: "/dashboard/analytics",
         },
       ],
     },
     {
       title: "Containers",
-      url: "/",
+      url: "/containers",
       icon: Box,
       items: [
         {
-          title: "Running",
-          url: "/",
-        },
-        {
-          title: "Stopped",
-          url: "/",
-        },
-        {
           title: "All Containers",
-          url: "/",
+          url: "/containers",
+        },
+        {
+          title: "Add New Container",
+          url: "/containers/new",
         },
       ],
     },
     {
       title: "Images",
-      url: "/",
+      url: "/images",
       icon: Layers,
       items: [
         {
           title: "Local Images",
-          url: "/",
+          url: "/images",
         },
         {
           title: "Pull Image",
-          url: "/",
+          url: "/images/pull",
         },
         {
           title: "Build History",
-          url: "/",
+          url: "/images/history",
         },
       ],
     },
     {
       title: "Networks",
-      url: "/",
+      url: "/networks",
       icon: Network,
       items: [
         {
           title: "All Networks",
-          url: "/",
+          url: "/networks",
         },
         {
           title: "Create Network",
-          url: "/",
+          url: "/networks/new",
         },
       ],
     },
     {
       title: "Volumes",
-      url: "/",
+      url: "/volumes",
       icon: Container,
       items: [
         {
           title: "All Volumes",
-          url: "/",
+          url: "/volumes",
         },
         {
           title: "Create Volume",
-          url: "/",
+          url: "/volumes/new",
         },
       ],
     },
     {
       title: "Settings",
-      url: "/",
+      url: "/settings",
       icon: Settings2,
       items: [
         {
           title: "General",
-          url: "/",
+          url: "/settings",
         },
         {
           title: "Docker Host",
-          url: "/",
-        },
-        {
-          title: "Preferences",
-          url: "/",
+          url: "/settings/docker",
         },
       ],
     },
@@ -144,7 +135,29 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = usePage<PageProps>().props;
+  const page = usePage<PageProps>();
+  const { user } = page.props;
+  // Inertia exposes the current URL as page.url; fall back to window for safety.
+  // @inertiajs/react adds `url` on the page object in runtime, but it's not in our PageProps type.
+  const currentUrl = (page as unknown as { url?: string }).url || (typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/');
+  const currentPath = currentUrl.split(/[?#]/)[0];
+
+  // Compute active state for main & sub items.
+  const computedNavMain = React.useMemo(() => {
+    return data.navMain.map(item => {
+      const subItems = item.items?.map(sub => ({
+        ...sub,
+        isActive: currentPath === sub.url
+      })) || [];
+      const hasActiveSub = subItems.some(s => s.isActive);
+      const isParentActive = currentPath === item.url || currentPath.startsWith(item.url + '/') || hasActiveSub;
+      return {
+        ...item,
+        isActive: isParentActive,
+        items: subItems
+      };
+    });
+  }, [currentPath]);
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -163,7 +176,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={computedNavMain} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
