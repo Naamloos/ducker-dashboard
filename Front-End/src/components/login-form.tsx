@@ -28,7 +28,7 @@ export function LoginForm({
     const search = new URLSearchParams(window.location.search);
     const returnTo = search.get("ReturnUrl") || "/";
     const response = await axios.post("/auth/login", {
-      email: (e.target as HTMLFormElement).email.value,
+      username: (e.target as HTMLFormElement).username.value,
       password: (e.target as HTMLFormElement).password.value,
     }, {
       // We want our own error handling
@@ -54,11 +54,11 @@ export function LoginForm({
           <form onSubmit={onSubmit}>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="username">Username</FieldLabel>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="admin@example.org"
+                  id="username"
+                  type="text"
+                  placeholder="admin"
                   required
                 />
               </Field>

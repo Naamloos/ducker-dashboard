@@ -25,114 +25,111 @@ import {
 } from "@/components/ui/sidebar"
 
 import logo from "@/assets/logo.png"
+import { Link, usePage } from "@inertiajs/react"
+import type PageProps from "@/@types/page-props"
 
 const data = {
-  user: {
-    name: "Naamloos",
-    email: "naamloos@example.org",
-    avatar: "https://nudes.zip/server-icon.png",
-  },
   navMain: [
     {
       title: "Dashboard",
-      url: "/dashboard",
+      url: "/",
       icon: Activity,
       isActive: true,
       items: [
         {
           title: "Overview",
-          url: "/dashboard/overview",
+          url: "/",
         },
         {
           title: "Analytics",
-          url: "/dashboard/analytics",
+          url: "/",
         },
       ],
     },
     {
       title: "Containers",
-      url: "/containers",
+      url: "/",
       icon: Box,
       items: [
         {
           title: "Running",
-          url: "/containers/running",
+          url: "/",
         },
         {
           title: "Stopped",
-          url: "/containers/stopped",
+          url: "/",
         },
         {
           title: "All Containers",
-          url: "/containers/all",
+          url: "/",
         },
       ],
     },
     {
       title: "Images",
-      url: "/images",
+      url: "/",
       icon: Layers,
       items: [
         {
           title: "Local Images",
-          url: "/images/local",
+          url: "/",
         },
         {
           title: "Pull Image",
-          url: "/images/pull",
+          url: "/",
         },
         {
           title: "Build History",
-          url: "/images/history",
+          url: "/",
         },
       ],
     },
     {
       title: "Networks",
-      url: "/networks",
+      url: "/",
       icon: Network,
       items: [
         {
           title: "All Networks",
-          url: "/networks/all",
+          url: "/",
         },
         {
           title: "Create Network",
-          url: "/networks/create",
+          url: "/",
         },
       ],
     },
     {
       title: "Volumes",
-      url: "/volumes",
+      url: "/",
       icon: Container,
       items: [
         {
           title: "All Volumes",
-          url: "/volumes/all",
+          url: "/",
         },
         {
           title: "Create Volume",
-          url: "/volumes/create",
+          url: "/",
         },
       ],
     },
     {
       title: "Settings",
-      url: "/settings",
+      url: "/",
       icon: Settings2,
       items: [
         {
           title: "General",
-          url: "/settings/general",
+          url: "/",
         },
         {
           title: "Docker Host",
-          url: "/settings/host",
+          url: "/",
         },
         {
           title: "Preferences",
-          url: "/settings/preferences",
+          url: "/",
         },
       ],
     },
@@ -147,19 +144,20 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = usePage<PageProps>().props;
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="/">
+              <Link href="/">
                 <img src={logo} alt="Ducker Logo" className="size-10"/>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Ducker Dashboard</span>
                   {/* <span className="truncate text-xs">Management</span> */}
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -169,7 +167,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={{
+          name: user?.username? (user.username[0].toUpperCase() + user.username.slice(1)) : "User",
+          avatar: logo
+        }} />
       </SidebarFooter>
     </Sidebar>
   )

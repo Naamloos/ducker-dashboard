@@ -1,5 +1,6 @@
 using Dev.Naamloos.Ducker.Database;
 using Dev.Naamloos.Ducker.Database.Entities;
+using Dev.Naamloos.Ducker.Middleware;
 using Dev.Naamloos.Ducker.Services;
 using InertiaCore.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,23 +16,13 @@ namespace Dev.Naamloos.Ducker
     {
         public static void Main(string[] args)
         {
-            if(!Directory.Exists("data"))
+            // ensure data directory exists
+            // TODO interpret location from env and set as working directory.
+            if (!Directory.Exists("data"))
             {
                 Directory.CreateDirectory("data");
             }
-            using (var cli = new CommandLine.CliHandler(args))
-            {
-                // This check prevents ef core tools breaking
-                if (!args.Any(x => x.Contains("--applicationName")) && cli.Handle())
-                {
-                    // Exit if CLI handled the arguments.
-                    // If not, the app should start as normal.
-                    #if DEBUG
-                    Console.ReadLine();
-                    #endif
-                    return;
-                }
-            }
+
             var builder = WebApplication.CreateBuilder(args);
 
             // TODO: Path configurable via environment or config file
@@ -114,6 +105,24 @@ namespace Dev.Naamloos.Ducker
             app.MapControllers();
 
             app.UseStaticFiles();
+
+            app.UseMiddleware<InertiaPropsMiddleware>();
+
+            // This check prevents ef core tools breaking
+            if (!args.Any(x => x.Contains("--applicationName")) && args.Length > 0)
+            {
+                // Create a service scope and pass to CLI handler
+                using var scope = app.Services.CreateScope();
+                var cli = new CommandLine.Cli(scope, args);
+                Task.Run(() => cli.HandleAsync()).Wait();
+
+                // Exit if CLI handled the arguments.
+                // If not, the app should start as normal.
+                #if DEBUG
+                Console.ReadLine();
+                #endif
+                return;
+            }
 
             app.Run();
         }

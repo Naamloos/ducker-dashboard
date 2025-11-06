@@ -2,7 +2,7 @@
 
 namespace Dev.Naamloos.Ducker.Dto
 {
-    public record RegisterUserDto(string Username, string Email, string Password);
+    public record RegisterUserDto(string Username, string Password, string InviteCode);
 
-    public record LoginUserDto(string Email, string Password);
+    public record LoginUserDto(string Username, string Password);
 }

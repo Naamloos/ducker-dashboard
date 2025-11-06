@@ -29,10 +29,12 @@ namespace Dev.Naamloos.Ducker.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
         {
+            throw new NotImplementedException("Registration is disabled.");
+
+            // TODO: check invite code.
             User newUser = new()
             {
                 UserName = dto.Username,
-                Email = dto.Email,
                 EmailConfirmed = true // we dont do email confirmation.
             };
 
@@ -52,7 +54,7 @@ namespace Dev.Naamloos.Ducker.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDto dto)
         {
-            var user = await _users.FindByEmailAsync(dto.Email);
+            var user = await _users.FindByNameAsync(dto.Username);
             if (user == null)
             {
                 return Unauthorized("Invalid username or password");

@@ -24,7 +24,13 @@
     },
     "create-admin": {
       "commandName": "Project",
-      "commandLineArgs": "create-admin admin@example.org admin",
+      "commandLineArgs": "create-admin admin admin",
+      "dotnetRunMessages": true,
+      "launchBrowser": false
+    },
+    "seed initial": {
+      "commandName": "Project",
+      "commandLineArgs": "seed initseeder",
       "dotnetRunMessages": true,
       "launchBrowser": false
     }

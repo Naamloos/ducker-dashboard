@@ -19,8 +19,8 @@ export default function AuthenticatedLayout({ children }: { children: ReactNode 
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2">
+      <SidebarInset className="flex flex-col">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-amber-400">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator
@@ -42,7 +42,7 @@ export default function AuthenticatedLayout({ children }: { children: ReactNode 
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="flex-1 overflow-y-auto p-4">
           {children}
         </div>
       </SidebarInset>

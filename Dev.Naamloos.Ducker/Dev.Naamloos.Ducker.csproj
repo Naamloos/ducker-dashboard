@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <Folder Include="Database\Entities\Partials\" />
+    <Folder Include="data\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

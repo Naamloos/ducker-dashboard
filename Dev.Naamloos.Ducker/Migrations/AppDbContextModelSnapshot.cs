@@ -42,6 +42,9 @@ namespace Dev.Naamloos.Ducker.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Token")
+                        .IsUnique();
+
                     b.HasIndex("UserId");
 
                     b.ToTable("SessionTokens");
@@ -71,6 +74,39 @@ namespace Dev.Naamloos.Ducker.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Dev.Naamloos.Ducker.Database.Entities.Team", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("Dev.Naamloos.Ducker.Database.Entities.TeamMembership", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("TeamId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamMemberships");
                 });
 
             modelBuilder.Entity("Dev.Naamloos.Ducker.Database.Entities.User", b =>
@@ -118,6 +154,9 @@ namespace Dev.Naamloos.Ducker.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
+                    b.Property<ulong?>("TeamId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");
 
@@ -133,6 +172,8 @@ namespace Dev.Naamloos.Ducker.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -250,6 +291,32 @@ namespace Dev.Naamloos.Ducker.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Dev.Naamloos.Ducker.Database.Entities.TeamMembership", b =>
+                {
+                    b.HasOne("Dev.Naamloos.Ducker.Database.Entities.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dev.Naamloos.Ducker.Database.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Dev.Naamloos.Ducker.Database.Entities.User", b =>
+                {
+                    b.HasOne("Dev.Naamloos.Ducker.Database.Entities.Team", null)
+                        .WithMany("Users")
+                        .HasForeignKey("TeamId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Dev.Naamloos.Ducker.Database.Entities.Role", null)
@@ -299,6 +366,11 @@ namespace Dev.Naamloos.Ducker.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Dev.Naamloos.Ducker.Database.Entities.Team", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
