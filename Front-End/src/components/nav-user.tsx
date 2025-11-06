@@ -24,7 +24,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { ThemeSwitcher } from "./ui/theme-switcher"
-import { useTheme } from "../hooks/use-theme"
 
 export function NavUser({
   user,
